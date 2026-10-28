@@ -52,9 +52,8 @@ while true; do
 done
 STATIC_IP="10.0.2.${DRONE_NUMBER}"
 
-printf 'NetworkManager wired connection name [%s]: ' "$DEFAULT_ETHERNET_CONNECTION"
-read -r ETH_CONNECTION
-ETH_CONNECTION=${ETH_CONNECTION:-$DEFAULT_ETHERNET_CONNECTION}
+# Always use the default NetworkManager wired connection; no connection-name prompt.
+ETH_CONNECTION=$DEFAULT_ETHERNET_CONNECTION
 if ! nmcli -g connection.id connection show "$ETH_CONNECTION" >/dev/null 2>&1; then
     printf 'ERROR: NetworkManager connection "%s" does not exist.\n' "$ETH_CONNECTION" >&2
     echo 'Available connections:' >&2
